@@ -1,4 +1,4 @@
-package com.GangJin.Fifahasu.fifaInfo;
+package com.GangJin.Fifahasu.service.fifaInfo;
 
 import lombok.Data;
 

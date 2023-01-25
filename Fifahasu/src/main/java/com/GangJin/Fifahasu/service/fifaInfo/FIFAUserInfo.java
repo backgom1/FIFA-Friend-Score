@@ -1,10 +1,12 @@
-package com.GangJin.Fifahasu.fifaInfo;
+package com.GangJin.Fifahasu.service.fifaInfo;
 
 
+import com.GangJin.Fifahasu.controller.main.MainSearchForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -13,16 +15,17 @@ import java.net.URI;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class fifaInfo {
-    private fifaInfoVO fifaInfoVO;
+public class FIFAUserInfo {
 
-    public String Info() {
+    public fifaInfoVO Info(@ModelAttribute MainSearchForm form) {
+        log.info("닉네임 = {}",form.getNickname());
         URI uri = UriComponentsBuilder
                 .fromUriString("https://api.nexon.co.kr")
                 .path("fifaonline4/v1.0/users")
-                .queryParam("nickname", "은광산")
+                .queryParam("nickname", "{nickname}")
                 .encode()
                 .build()
+                .expand(form.getNickname())
                 .toUri();
 
         RestTemplate restTemplate = new RestTemplate();
@@ -35,15 +38,15 @@ public class fifaInfo {
         HttpEntity request = new HttpEntity(headers);
 
 
-        ResponseEntity<String> response = restTemplate.exchange(
+        ResponseEntity<fifaInfoVO> response = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
                 request,
-                String.class
+                fifaInfoVO.class
         );
-
         log.info("값3={}", response.getHeaders());
         log.info("값4={}", response.getBody());
+        log.info("값={}",response.getBody().getLevel());
 
         return response.getBody();
     }
