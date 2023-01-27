@@ -2,12 +2,14 @@ package com.GangJin.Fifahasu.controller.main;
 
 import com.GangJin.Fifahasu.service.fifaInfo.FIFAUserInfo;
 import com.GangJin.Fifahasu.service.fifaInfo.fifaInfoVO;
+import com.GangJin.Fifahasu.service.matchInfo.UserSIDMatchDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,10 +23,18 @@ public class MainController {
         return "/views/main/main";
     }
 
-    @GetMapping("/do")
-    public String Search(Model model, @ModelAttribute MainSearchForm form) {
-        String nickname = fifaUserInfo.Info(form).getNickname();
+    //검색 결과
+    @GetMapping("/find/{nickname}")
+    public String Search(Model model, @ModelAttribute MainSearchForm form,@PathVariable("nickname") String nickname) {
+        //Exception
+
+        //User
         int level = fifaUserInfo.Info(form).getLevel();
+
+        //Match
+
+
+        //Model
         model.addAttribute("userNickName",nickname);
         model.addAttribute("userLevel",level);
         return "/views/search/search";
