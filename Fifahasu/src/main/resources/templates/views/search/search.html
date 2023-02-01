@@ -6,8 +6,34 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
 <body>
- <p th:text="${userLevel}"></p>
- <p th:text="${userNickName}"></p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div id="faqlist" class="accordion accordion-flush" th:each="MatchGames : ${MatchGame}">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="btn accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#content-accordion-1"><p th:text="${MatchGame.matchInfo[0].getNickname()}"></p>
+<!--                                th:text="|${MatchInfo[0].nickname} ${MatchInfo[0].player[0].status.goal}  :  ${MatchInfo[1].player[1].status.goal} ${MatchInfo[1].nickname}|">-->
+                            <p></p>
+                        </button>
+                    </h2>
+                    <div id="content-accordion-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                        <p class="accordion-body"> Lorem Ipsum is simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the
+                            1500s.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p th:text="${userLevel}"></p>
+<p th:text="${userNickName}"></p>
+<p th:text="${MatchGame.matchDate}"></p>
 </body>
+
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 </html>

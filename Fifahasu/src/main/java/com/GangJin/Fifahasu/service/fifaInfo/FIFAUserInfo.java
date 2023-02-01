@@ -3,7 +3,6 @@ package com.GangJin.Fifahasu.service.fifaInfo;
 
 import com.GangJin.Fifahasu.controller.main.MainSearchForm;
 import com.GangJin.Fifahasu.service.matchInfo.MatchDTO;
-import com.GangJin.Fifahasu.service.matchInfo.UserSIDMatchDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -14,11 +13,14 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class FIFAUserInfo extends DefaultResponseErrorHandler {
+
 
     //유저 정보 가져오기
     public fifaInfoVO Info(@ModelAttribute MainSearchForm form) {
@@ -48,21 +50,22 @@ public class FIFAUserInfo extends DefaultResponseErrorHandler {
         );
         log.info("헤더 값={}", response.getHeaders());
         log.info("바디 값={}", response.getBody());
-        log.info("피파 레벨={}",response.getBody().getLevel());
+        log.info("피파 레벨={}", response.getBody().getLevel());
 
         return response.getBody();
     }
 
 
-
     //매치 UID 값 받아오기
-    public String MatchUID(@ModelAttribute MainSearchForm form){
+    public List<String> MatchUID(@ModelAttribute MainSearchForm form) {
+
+
         URI UID_uri = UriComponentsBuilder
                 .fromUriString("https://api.nexon.co.kr")
                 .path("fifaonline4/v1.0/users/{accessId}/matches")
                 .queryParam("matchtype", 40)
-                .queryParam("offset", 1)
-                .queryParam("limit", 30)
+                .queryParam("offset", 0)
+                .queryParam("limit", 2)
                 .encode()
                 .build()
                 .expand(Info(form).getAccessId())
@@ -78,29 +81,30 @@ public class FIFAUserInfo extends DefaultResponseErrorHandler {
 
 
         //결과를 담을 값
-        ResponseEntity<String> UID_response = UID_restTemplate.exchange(
+        ResponseEntity<List> UID_response = UID_restTemplate.exchange(
                 UID_uri,
                 HttpMethod.GET,
                 request,
-                String.class
+                List.class
         );
-        log.info("헤더 값={}", UID_response.getHeaders());
-        log.info("바디 값={}", UID_response.getBody());
+
+        log.info("매치 UID 헤더 값={}", UID_response.getHeaders());
+        log.info("매치 UID 바디 값={}", UID_response.getBody());
 
         return UID_response.getBody();
     }
 
 
-
     //전적 검색하기
-    public MatchDTO MatchVSInfo(@ModelAttribute MainSearchForm form){
-
+    public MatchDTO MatchVSInfo(@ModelAttribute MainSearchForm form,String matchUID) {
+        // List<String> matchUID = MatchUID(form);
+        log.info("배열 담은 값={}", matchUID);
         URI MatchInfo_uri = UriComponentsBuilder
                 .fromUriString("https://api.nexon.co.kr")
                 .path("fifaonline4/v1.0/matches/{matchid}")
                 .encode()
                 .build()
-                .expand("63cfdda50d91713671d10bdc")
+                .expand(matchUID)
                 .toUri();
 
         RestTemplate Match_restTemplate = new RestTemplate();
@@ -118,11 +122,10 @@ public class FIFAUserInfo extends DefaultResponseErrorHandler {
                 request,
                 MatchDTO.class
         );
-        log.info("헤더 값={}", Match_response.getHeaders());
-        log.info("바디 값={}", Match_response.getBody());
+
+        log.info("매치 상세 경기 헤더 값={}", Match_response.getHeaders());
+        log.info("매치 상세 경기 바디 값={}", Match_response.getBody());
 
         return Match_response.getBody();
     }
-
-
 }
