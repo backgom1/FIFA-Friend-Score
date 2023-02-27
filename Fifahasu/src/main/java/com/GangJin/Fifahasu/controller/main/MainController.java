@@ -29,22 +29,20 @@ public class MainController {
 
     //검색 결과
     @GetMapping("/find/{nickname}")
-    public String Search(Model model, @ModelAttribute MainSearchForm form,@PathVariable("nickname") String nickname) throws ParseException {
+    public String Search(Model model, @ModelAttribute MainSearchForm form, @PathVariable("nickname") String nickname) throws ParseException {
         //Exception
 
-        //User
+        //Player
         int level = fifaUserInfo.Info(form).getLevel();
 
-        //Match
+        //Matchs
         List<String> matchUID = fifaUserInfo.MatchUID(form);
-        for (String match: matchUID
-             ) {
+        for (String match : matchUID
+        ) {
             MatchDTO matchDTO = fifaUserInfo.MatchVSInfo(form, match);
-//        List<MatchInfoDTO> matchInfo = fifaUserInfo.MatchVSInfo(form).getMatchInfo();
             log.info("매치값={}", matchDTO);
             //Model
             model.addAttribute("MatchGame", matchDTO);
-//        model.addAttribute("MatchInfo",matchInfo);
         }
         return "/views/search/search";
     }
