@@ -12,4 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class FifaApiController {
 
 
+    @GetMapping
+    public String test(){
+        return "test";
+    }
 }
