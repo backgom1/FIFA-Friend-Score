@@ -1,9 +1,9 @@
 package com.GangJin.Fifahasu.domain;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 
 @Entity
 @Getter
