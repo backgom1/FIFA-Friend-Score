@@ -21,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FIFAUserInfo extends DefaultResponseErrorHandler {
 
+    private final static String FIFA_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJYLUFwcC1SYXRlLUxpbWl0IjoiNTAwOjEwIiwiYWNjb3VudF9pZCI6IjIwODA2ODI1NjQiLCJhdXRoX2lkIjoiMiIsImV4cCI6MTcxNDMxOTYyNiwiaWF0IjoxNjk4NzY3NjI2LCJuYmYiOjE2OTg3Njc2MjYsInNlcnZpY2VfaWQiOiI0MzAwMTE0ODEiLCJ0b2tlbl90eXBlIjoiQWNjZXNzVG9rZW4ifQ.dcD8FnkaeDl0mAYkKgdCZ0fC3l-_4AQSXkku8j_K9Mo";
 
     //유저 정보 가져오기
     public fifaInfoVO Info(@ModelAttribute MainSearchForm form) {
@@ -37,7 +38,7 @@ public class FIFAUserInfo extends DefaultResponseErrorHandler {
 
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJYLUFwcC1SYXRlLUxpbWl0IjoiNTAwOjEwIiwiYWNjb3VudF9pZCI6IjIwODA2ODI1NjQiLCJhdXRoX2lkIjoiMiIsImV4cCI6MTY5MDAyOTAyNywiaWF0IjoxNjc0NDc3MDI3LCJuYmYiOjE2NzQ0NzcwMjcsInNlcnZpY2VfaWQiOiI0MzAwMTE0ODEiLCJ0b2tlbl90eXBlIjoiQWNjZXNzVG9rZW4ifQ.-brAZxOBgURuSymRobCzU58uiF8ZpGPDsOSkpK8YDMk");
+        headers.set("Authorization",FIFA_API_KEY);
         HttpEntity request = new HttpEntity(headers);
 
 
@@ -76,7 +77,7 @@ public class FIFAUserInfo extends DefaultResponseErrorHandler {
 
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJYLUFwcC1SYXRlLUxpbWl0IjoiNTAwOjEwIiwiYWNjb3VudF9pZCI6IjIwODA2ODI1NjQiLCJhdXRoX2lkIjoiMiIsImV4cCI6MTY5MDAyOTAyNywiaWF0IjoxNjc0NDc3MDI3LCJuYmYiOjE2NzQ0NzcwMjcsInNlcnZpY2VfaWQiOiI0MzAwMTE0ODEiLCJ0b2tlbl90eXBlIjoiQWNjZXNzVG9rZW4ifQ.-brAZxOBgURuSymRobCzU58uiF8ZpGPDsOSkpK8YDMk");
+        headers.set("Authorization",FIFA_API_KEY);
         HttpEntity request = new HttpEntity(headers);
 
 
@@ -111,7 +112,7 @@ public class FIFAUserInfo extends DefaultResponseErrorHandler {
 
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJYLUFwcC1SYXRlLUxpbWl0IjoiNTAwOjEwIiwiYWNjb3VudF9pZCI6IjIwODA2ODI1NjQiLCJhdXRoX2lkIjoiMiIsImV4cCI6MTY5MDAyOTAyNywiaWF0IjoxNjc0NDc3MDI3LCJuYmYiOjE2NzQ0NzcwMjcsInNlcnZpY2VfaWQiOiI0MzAwMTE0ODEiLCJ0b2tlbl90eXBlIjoiQWNjZXNzVG9rZW4ifQ.-brAZxOBgURuSymRobCzU58uiF8ZpGPDsOSkpK8YDMk");
+        headers.set("Authorization", FIFA_API_KEY);
         HttpEntity request = new HttpEntity(headers);
 
 

@@ -8,12 +8,24 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic&amp;display=swap">
+
 </head>
 <script>
-    function getvalue(){
-        var idx = document.getElementById('nickname').value;
-        var urll = 'find/'+idx
-        return urll;
+    document.getElementById('find-nickname').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 기본 이벤트 (폼 제출 등) 방지
+            searchByNickName(); // 닉네임으로 검색하는 함수 호출
+        }
+    });
+
+    function searchByNickName() {
+        var nickname = document.getElementById('nickname').value;
+
+        if(nickname === ""){
+            alert("사용자 명을 입력해주세요");
+        }
+
+        window.location.href = "/good/"+nickname;
     }
 </script>
 <body>
@@ -26,21 +38,20 @@
                 <h1 class="mb-5">피파 전적 검색</h1>
             </div>
             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto position-relative">
-                <form>
                     <div class="row">
                         <div class="col-12 col-md-9 mb-2 mb-md-0"><input name="nickname" id="nickname"
                                                                          class="form-control form-control-lg"
                                                                          type="search" placeholder="아이디 검색"></div>
                         <div class="col-12 col-md-3">
-                            <button class="btn btn-primary btn-lg" type="button" onkeydown="document.location.href=getvalue()" onclick="document.location.href=getvalue()">검색</button>
+                            <button id="find-nickname" class="btn btn-primary btn-lg" onclick="searchByNickName()" type="button">검색</button>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     </div>
 </header>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>

@@ -1,6 +1,5 @@
 package com.GangJin.Fifahasu.domain;
 
-import com.GangJin.Fifahasu.service.matchInfo.StatusDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.*;
 
-import static javax.persistence.FetchType.LAZY;
+import static jakarta.persistence.FetchType.LAZY;
 
 /**
  * 피파 API 계정의 내용을 저장하는 값
@@ -43,7 +42,7 @@ public class Player {
 
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "Matchinfo_Code")
     private MatchInfo matchInfo;
 

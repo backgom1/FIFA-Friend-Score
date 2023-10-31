@@ -1,21 +1,19 @@
 package com.GangJin.Fifahasu.controller.main;
 
 import com.GangJin.Fifahasu.service.fifaInfo.FIFAUserInfo;
-import com.GangJin.Fifahasu.service.fifaInfo.fifaInfoVO;
 import com.GangJin.Fifahasu.service.matchInfo.MatchDTO;
-import com.GangJin.Fifahasu.service.matchInfo.MatchInfoDTO;
-import com.GangJin.Fifahasu.service.matchInfo.UserSIDMatchDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.parser.ParseException;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public class MainController {
@@ -23,27 +21,37 @@ public class MainController {
     private final FIFAUserInfo fifaUserInfo;
 
     @GetMapping
-    public String Main(@ModelAttribute MainSearchForm form) {
-        return "/views/main/main";
+    public ModelAndView Main() {
+        return new ModelAndView("/views/main/main");
+    }
+
+    @GetMapping("/good/{nickname}")
+    public ModelAndView result(@PathVariable("nickname") String nickname) {
+        ModelAndView mav = new ModelAndView("/views/exception/SearchException");
+        mav.addObject("nickname",nickname);
+        return mav;
     }
 
     //검색 결과
     @GetMapping("/find/{nickname}")
-    public String Search(Model model, @ModelAttribute MainSearchForm form, @PathVariable("nickname") String nickname) throws ParseException {
+    public ResponseEntity<MatchDTO> findByUserInfo(@ModelAttribute MainSearchForm form, @PathVariable("nickname") String nickname) throws ParseException {
+        log.info("닉네임 확인 = {}", nickname);
+
         //Exception
 
         //Player
         int level = fifaUserInfo.Info(form).getLevel();
 
+        MatchDTO matchDTO = new MatchDTO();
+
         //Matchs
         List<String> matchUID = fifaUserInfo.MatchUID(form);
         for (String match : matchUID
         ) {
-            MatchDTO matchDTO = fifaUserInfo.MatchVSInfo(form, match);
+            matchDTO = fifaUserInfo.MatchVSInfo(form, match);
             log.info("매치값={}", matchDTO);
             //Model
-            model.addAttribute("MatchGame", matchDTO);
         }
-        return "/views/search/search";
+        return new ResponseEntity<>(matchDTO, HttpStatus.OK);
     }
 }

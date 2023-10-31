@@ -1,6 +1,5 @@
 package com.GangJin.Fifahasu.domain;
 
-import com.GangJin.Fifahasu.service.matchInfo.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +8,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.FetchType.LAZY;
+import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
@@ -58,7 +57,7 @@ public class MatchInfo {
     private List<Player> player = new ArrayList<>();
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "Match_Code")
     private Matchs matchs;
 
