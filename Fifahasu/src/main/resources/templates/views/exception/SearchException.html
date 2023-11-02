@@ -3,35 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <script th:inline="javascript">
-
-    var username = [[${nickname}]];
+    /*<![CDATA[*/
+    var username = [[${nickname}]]; // 문자열 변수를 위해 따옴표 추가
 
     $(document).ready(function(){
         console.log(username);
         init(username);
     });
-
+    /*]]>*/
     function init(username) {
-
-        $.ajax({
-            url : "http://localhost:8080/find/"+username,
-            data : null,
-            async : true,
-            dataType : "json",
-            type : "GET",
-            contentType : "application/json",
-
-        }).done(function (fragment) {
-            $("#searchInfo").replaceWith(fragment);
-        });
+        // AJAX 호출 구현
+        AjaxController.call("http://localhost:8080/find/" + encodeURIComponent(username),"GET",null);
     }
 </script>
 <body>
 <div id="searchInfo">
-    <p ></p>
 </div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </html>
