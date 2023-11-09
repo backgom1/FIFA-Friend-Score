@@ -1,19 +1,23 @@
 package com.GangJin.Fifahasu.controller;
 
-import com.GangJin.Fifahasu.service.IRecordSearchService;
+import com.GangJin.Fifahasu.service.ISearchResultService;
+import com.GangJin.Fifahasu.util.IRecordSearchUtil;
 import com.GangJin.Fifahasu.dto.MatchDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 public class SearchResultController {
 
-    private IRecordSearchService recordSearchService;
+    private final ISearchResultService searchResultService;
 
     @GetMapping("/result")
     public ModelAndView resultV1() {
@@ -21,36 +25,10 @@ public class SearchResultController {
     }
 
 
-    @GetMapping("/api/match-record")
-    public ResponseEntity<MatchDTO> findByUserInfo() {
-        recordSearchService.findRecordList();
-        return null;
+    @GetMapping("/v1/api/match-record")
+    @ResponseStatus(HttpStatus.OK)
+    public List<MatchDTO> getMatchRecord() {
+        return searchResultService.findByMatchList();
     }
 
-
-    //검색 결과
-//    @GetMapping("/find/{nickname}")
-//    public ResponseEntity<MatchDTO> findByUserInfo(@ModelAttribute UserSearchResult form, @PathVariable("nickname") String nickname) throws ParseException, UserNotFoundException {
-//        log.info("닉네임 확인 = {}", nickname);
-//
-//        //Exception
-//        if (nickname.equals("은광산")) {
-//            throw new UserNotFoundException("은광산 예외처리");
-//        }
-//
-//        //Player
-//        int level = fifaUserInfo.Info(form).getLevel();
-//
-//        MatchDTO matchDTO = new MatchDTO();
-//
-//        //Matchs
-//        List<String> matchUID = fifaUserInfo.MatchUID(form);
-//        for (String match : matchUID
-//        ) {
-//            matchDTO = fifaUserInfo.MatchVSInfo(form, match);
-//            log.info("매치값={}", matchDTO);
-//            //Model
-//        }
-//        return new ResponseEntity<>(matchDTO, HttpStatus.OK);
-//    }
 }

@@ -13,9 +13,9 @@ public class MatchInfoDTO {
     private String nickname;
     private MatchDetailDTO matchDetail;
     private ShootDTO shoot;
-    private List<ShootDetailDTO> shootDetail = new ArrayList<>();
+    private List<ShootDetailDTO> shootDetail;
     private PassDTO pass;
     private DefenceDTO defence;
-    private List<PlayerDTO> player = new ArrayList<>();
+    private List<PlayerDTO> player;
 
 }

@@ -11,6 +11,6 @@ public class MatchDTO {
     private String matchId;
     private String matchDate;
     private int matchType;
-    private List<MatchInfoDTO> matchInfo = new ArrayList<>();
+    private List<MatchInfoDTO> matchInfo;
 
 }
