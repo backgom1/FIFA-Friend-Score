@@ -1,9 +1,9 @@
-package com.GangJin.Fifahasu.service.fifaInfo;
+package com.GangJin.Fifahasu.dto;
 
 import lombok.Data;
 
 @Data
-public class fifaInfoVO {
+public class FifaInfoVO {
     private String accessId;
     private String nickname;
     private int level;

@@ -17,7 +17,12 @@
     /*]]>*/
     function init(username) {
         // AJAX 호출 구현
-        AjaxController.call("http://localhost:8080/find/" + encodeURIComponent(username),"GET",null,);
+        AjaxController.call("http://localhost:8080/find/" + encodeURIComponent(username),"GET",null,list());
+
+        
+    }
+    function list(){
+
     }
 </script>
 <body>

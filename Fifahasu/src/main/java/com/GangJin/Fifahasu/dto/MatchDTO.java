@@ -1,4 +1,4 @@
-package com.GangJin.Fifahasu.service.matchInfo;
+package com.GangJin.Fifahasu.dto;
 
 import lombok.Data;
 
