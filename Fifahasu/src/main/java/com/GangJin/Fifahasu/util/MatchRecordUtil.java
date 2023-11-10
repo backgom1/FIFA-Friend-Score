@@ -18,12 +18,20 @@ import java.util.List;
 
 
 /**
- * 사용자의 FIFA 매치 기록을 조회합니다.
+ * FIFA 온라인 4 관련 데이터 처리를 위한 유틸리티 클래스입니다.
  *
- * @return FIFAUserInfo 사용자의 FIFA 매치 정보를 담은 객체를 반환합니다.
- * 현재는 구현되지 않았으므로 항상 null을 반환합니다.
+ * 이 클래스는 넥슨의 FIFA 온라인 4 API를 사용하여 다양한 데이터를 검색하고 처리합니다.
+ * API 키를 사용하여 인증된 요청을 보내고, 사용자의 FIFA 정보, 매치 UUID, 매치 상세 정보 등을 가져옵니다.
+ *
+ * 주요 기능:
+ * - 사용자의 FIFA 정보 검색: {@link #getAccessId()}
+ * - 특정 사용자의 매치 UUID 목록 검색: {@link #getMatchUUID(FifaInfoVO)}
+ * - 매치 목록에 대한 상세 정보 검색: {@link #getMatchDetailInfo(List)}
+ *
+ * 이 클래스는 {@link Service}로 등록되어 스프링 컨테이너에서 관리됩니다.'
+ * @since 2023-11-10
+ * @author 이은성
  */
-
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -98,7 +106,17 @@ public class MatchRecordUtil implements IRecordSearchUtil {
 
 
 
-
+    /**
+     * 매치 목록에 대한 상세 정보를 검색합니다.
+     *
+     * 이 메소드는 매치 UUID 목록을 받아 각 매치에 대한 상세 정보를 원격 API에 조회합니다.
+     * 각 매치에 대해 URI를 구성하고, 원격 서버에 GET 요청을 보내고, 각 응답을 {@link MatchDTO} 객체 목록으로 수집합니다.
+     *
+     * @param matchUuidList 상세 정보를 검색할 매치 UUID(범용 고유 식별자) 목록.
+     * @return 각 매치에 대한 상세 정보가 포함된 {@link MatchDTO} 객체 목록.
+     * @throws RestClientException REST 요청 중 오류가 발생했을 경우 발생합니다.
+     * @throws URISyntaxException URI 구성 중 오류가 발생했을 경우 발생합니다.
+     */
     public List<MatchDTO> getMatchDetailInfo(List<String> matchUuidList) {
         log.info("========================== DetailInfo Start ==========================");
 
